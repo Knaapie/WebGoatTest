@@ -18,7 +18,7 @@ public class VulnerableTaskHolder implements Serializable {
   private String taskAction;
   private LocalDateTime requestedExecutionTime;
 
-  public VulnerableTaskHolder(String taskName, String taskAction) {
+  public VulnerableTaskHolder(final String taskName, final String taskAction) {
     super();
     this.taskName = taskName;
     this.taskAction = taskAction;
@@ -41,7 +41,7 @@ public class VulnerableTaskHolder implements Serializable {
    *
    * @author stupid develop
    */
-  private void readObject(ObjectInputStream stream) throws Exception {
+  private void readObject(final ObjectInputStream stream) throws Exception {
     // unserialize data so taskName and taskAction are available
     stream.defaultReadObject();
 
@@ -62,13 +62,14 @@ public class VulnerableTaskHolder implements Serializable {
         && taskAction.length() < 22) {
       log.info("about to execute: {}", taskAction);
       try {
-        Process p = Runtime.getRuntime().exec(taskAction);
-        BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
+        final Process p = Runtime.getRuntime().exec(taskAction);
+        final BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()));
         String line = null;
+        final String line2 = null;
         while ((line = in.readLine()) != null) {
           log.info(line);
         }
-      } catch (IOException e) {
+      } catch (final IOException e) {
         log.error("IO Exception", e);
       }
     }
